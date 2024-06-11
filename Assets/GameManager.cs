@@ -14,6 +14,28 @@ public class GameManager : MonoSingleton<GameManager>
     
     void ResetGame()
     {
-        
+        tankCount = 0;
+        deadTankCount = 0;
+        Pool.instance.CloseAllTanks();
+    }
+    
+    void Start()
+    {
+        ResetGame();
+        SpawnTank();
+    }
+
+    private void SpawnTank()
+    {
+        var tank = Pool.instance.GetPooledTank();
+        tank.gameObject.SetActive(true);
+        tank.transform.position = spawnPoint.position;
+        tank.transform.rotation = spawnPoint.rotation;
+        tankCount++;
+
+        if (tankCount == 1)
+        {
+            selectedTank = tank;
+        }
     }
 }

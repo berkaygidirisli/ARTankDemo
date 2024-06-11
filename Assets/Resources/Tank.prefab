@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec01d931bb0f8c24fba56e7e447ed2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 3678270601561917783, guid: 9a82275ca6dbe854994e864e75420def, type: 3}
+  projectile: {fileID: 7539985219869609391, guid: 9a82275ca6dbe854994e864e75420def, type: 3}
   cannon: {fileID: 2784843240624802885}
   cannonPoint: {fileID: 6315198910638553140}
   rb: {fileID: 2122371184794548770}

@@ -13,8 +13,6 @@ public class ControlManager : MonoSingleton<ControlManager>
     public float rotationSpeed = 5f;
     
     public Button fireButton;
-
-    public Tank selectedTank;
     
     void Start()
     {
@@ -23,8 +21,10 @@ public class ControlManager : MonoSingleton<ControlManager>
     
     private void FixedUpdate()
     {
-        HandleMovement(selectedTank);
-        HandleCannonRotation(selectedTank);
+        if(GameManager.instance.selectedTank == null) return;
+        
+        HandleMovement(GameManager.instance.selectedTank);
+        HandleCannonRotation(GameManager.instance.selectedTank);
     }
 
     private void HandleCannonRotation(Tank tank)
@@ -49,8 +49,8 @@ public class ControlManager : MonoSingleton<ControlManager>
 
     private void Fire()
     {
-        if (selectedTank.gameObject == null) return;
+        if (GameManager.instance.gameObject == null) return;
         
-        selectedTank.Fire();
+        GameManager.instance.selectedTank.Fire();
     }
 }

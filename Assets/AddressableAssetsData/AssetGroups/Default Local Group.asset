@@ -16,17 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: a84bfa4dcc5928e43862e383c27f8808
-  m_SerializeEntries:
-  - m_GUID: 7ae8f557d36569f4b84e45f86757f7ce
-    m_Address: Tank
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9a82275ca6dbe854994e864e75420def
-    m_Address: Projectile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c6cf180bb4405c468570997d6f2ca1b, type: 2}
   m_SchemaSet:
