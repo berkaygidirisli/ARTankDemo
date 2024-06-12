@@ -1,6 +1,8 @@
 using TMPro;
+using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Vuforia;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -9,6 +11,7 @@ public class UIManager : MonoSingleton<UIManager>
     
     public Button fireButton;
     public Button resetButton;
+    public Button placePlaneButton;
     public Button createTankButton;
     
     public VariableJoystick movementJoystick;
@@ -26,12 +29,16 @@ public class UIManager : MonoSingleton<UIManager>
             GameManager.instance.ResetGame();
         });
         
+        placePlaneButton.onClick.AddListener(() =>
+        {
+            GameManager.instance.planeFinderBehaviour.PerformHitTest(Vector2.zero);
+        });
+        
         createTankButton.onClick.AddListener(() =>
         {
             GameManager.instance.SpawnTank();
         });
     }
-
 
     public void UpdateUI()
     {

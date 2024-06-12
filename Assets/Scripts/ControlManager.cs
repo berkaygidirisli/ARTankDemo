@@ -1,13 +1,9 @@
 using UnityEngine;
 
-
 public class ControlManager : MonoSingleton<ControlManager>
 {
     private VariableJoystick movementJoystick;
-    public float movementSpeed = 10f;
-    
     private VariableJoystick rotationJoystick;
-    public float rotationSpeed = 5f;
     
     void Start()
     {
@@ -44,19 +40,29 @@ public class ControlManager : MonoSingleton<ControlManager>
     {
         if (tank.gameObject == null) return;
         
-        Vector3 direction =  Vector3.forward * rotationJoystick.Horizontal;
-        tank.cannon.transform.Rotate(direction * rotationSpeed * Time.fixedDeltaTime);
+        Vector3 direction =  Camera.main.transform.forward * rotationJoystick.Horizontal;
+        tank.cannon.transform.Rotate(direction * tank.rotationSpeed * Time.fixedDeltaTime);
     }
 
     private void HandleMovement(Tank tank)
     {
         if (tank.gameObject == null) return;
+
+        Vector3 movement = Camera.main.transform.right * movementJoystick.Horizontal +
+                           Camera.main.transform.forward * movementJoystick.Vertical;
+        movement.y = 0f;
+        //Normalizes the vector3 to ensure that even if 2 inputs is pressed at the same time, the value still is either 1, 0 or -1, before multiplying with
+        //deltaTime (framerate issue) and movementSpeed.
+        movement.Normalize();
+ 
+        //Takes the transform's current position and adds the vector 3 movement, to create the new position.
+        tank.rb.velocity = new Vector3(movement.x * tank.movementSpeed, tank.rb.velocity.y, movement.z * tank.movementSpeed);
         
-        tank.rb.velocity = new Vector3(movementJoystick.Horizontal * movementSpeed, tank.rb.velocity.y, movementJoystick.Vertical * movementSpeed);
+        //tank.rb.velocity = new Vector3( movementJoystick.Horizontal * tank.movementSpeed, tank.rb.velocity.y, movementJoystick.Vertical * tank.movementSpeed);
 
         if (movementJoystick.Horizontal != 0 || movementJoystick.Vertical != 0)
         {
-            tank.transform.rotation = Quaternion.LookRotation(new Vector3(movementJoystick.Horizontal, 0, movementJoystick.Vertical));
+            tank.transform.rotation = Quaternion.LookRotation(new Vector3(movement.x, 0, movement.z));
         }
     }
 }

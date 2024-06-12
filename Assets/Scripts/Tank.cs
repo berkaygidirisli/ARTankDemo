@@ -9,6 +9,10 @@ public class Tank : MonoBehaviour
     public Transform cannonPoint;
     public Rigidbody rb;
     
+    public float cannonForce = 1f;
+    public float movementSpeed = 0.1f;
+    public float rotationSpeed = 2f;
+    
     public void Fire()
     {
         //var go = Pool.instance.projectilePool.Get();
@@ -16,7 +20,7 @@ public class Tank : MonoBehaviour
         go.transform.position = cannonPoint.position;
         go.transform.rotation = cannonPoint.rotation;
         go.gameObject.SetActive(true);
-        go.GetComponent<Rigidbody>().AddForce(-cannonPoint.up * 1000f);
+        go.GetComponent<Rigidbody>().AddForce(-cannonPoint.up * cannonForce);
         StartCoroutine(DisableProjectile(go));
     }
 

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Packed Assets
+  m_EditorClassIdentifier: 
+  m_GroupName: Packed Assets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 27613862ca7378e4581652a39af2b79f
+  m_SerializeEntries:
+  - m_GUID: 9a82275ca6dbe854994e864e75420def
+    m_Address: Projectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Projectile
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ae8f557d36569f4b84e45f86757f7ce
+    m_Address: Tank
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Tank
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4c6cf180bb4405c468570997d6f2ca1b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 66f5db33ae0715441a1904c22f1f690f, type: 2}
+    - {fileID: 11400000, guid: 16b6aa011decc3d4593bc23a82519121, type: 2}

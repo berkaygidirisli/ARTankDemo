@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: a84bfa4dcc5928e43862e383c27f8808
+  m_DefaultGroup: 27613862ca7378e4581652a39af2b79f
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 009dfdab639bfa63bf272e953cac0378
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -38,14 +38,14 @@ MonoBehaviour:
     m_Id: 
   m_RemoteCatalogLoadPath:
     m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 3d5f24424989f254c92772b6d10259e1, type: 2}
-  - {fileID: 11400000, guid: e0ff0e714921e3f439d5e045affcce7b, type: 2}
+  - {fileID: 11400000, guid: e9e5e6aa03fea3d489490d2a9c2b4d68, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -87,6 +87,8 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - Tank
+    - Projectile
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 7a26aa98248cbe74ebe268024b3db9b4, type: 2}

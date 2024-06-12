@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3578508769407032358}
   m_Layer: 0
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,6 +133,9 @@ MonoBehaviour:
   cannon: {fileID: 2784843240624802885}
   cannonPoint: {fileID: 6315198910638553140}
   rb: {fileID: 2122371184794548770}
+  cannonForce: 10
+  movementSpeed: 0.5
+  rotationSpeed: 20
 --- !u!54 &2122371184794548770
 Rigidbody:
   m_ObjectHideFlags: 0
