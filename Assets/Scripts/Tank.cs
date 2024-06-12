@@ -23,19 +23,25 @@ public class Tank : MonoBehaviour
     private IEnumerator DisableProjectile(GameObject go)
     {
         yield return new WaitForSeconds(5f);
-        
+        DisableObject(go);
+    }
+
+    private static void DisableObject(GameObject go)
+    {
+        go.GetComponent<Rigidbody>().angularVelocity = (Vector3.zero);
         go.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        go.SetActive(false);
+        Pool.instance.Release(go);
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Projectile"))
         {
-            Pool.instance.Release(gameObject);
-            Pool.instance.Release(other.gameObject);
+            DisableObject(gameObject);
+            DisableObject(other.gameObject);
             GameManager.instance.deadTankCount++;
             GameManager.instance.tankCount--;
+            UIManager.instance.UpdateUI();
         }
     }
 }

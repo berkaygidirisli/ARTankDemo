@@ -1,31 +1,44 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class ControlManager : MonoSingleton<ControlManager>
 {
-    public VariableJoystick movementJoystick;
+    private VariableJoystick movementJoystick;
     public float movementSpeed = 10f;
     
-    public VariableJoystick rotationJoystick;
+    private VariableJoystick rotationJoystick;
     public float rotationSpeed = 5f;
-    
-    public Button fireButton;
     
     void Start()
     {
-        fireButton.onClick.AddListener(Fire);
+        movementJoystick = UIManager.instance.movementJoystick;
+        rotationJoystick = UIManager.instance.rotationJoystick;
     }
-    
     private void FixedUpdate()
     {
         if(GameManager.instance.selectedTank == null) return;
         
         HandleMovement(GameManager.instance.selectedTank);
         HandleCannonRotation(GameManager.instance.selectedTank);
+        SelectTankUsingRaycast();
     }
+    
+    void SelectTankUsingRaycast()
+    {
+        if (TouchPhase.Began == Input.GetTouch(0).phase)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("Tank"))
+                {
+                    GameManager.instance.selectedTank = hit.collider.GetComponent<Tank>();
+                }
+            }
+        }
+    }
+    
 
     private void HandleCannonRotation(Tank tank)
     {
@@ -45,12 +58,5 @@ public class ControlManager : MonoSingleton<ControlManager>
         {
             tank.transform.rotation = Quaternion.LookRotation(new Vector3(movementJoystick.Horizontal, 0, movementJoystick.Vertical));
         }
-    }
-
-    private void Fire()
-    {
-        if (GameManager.instance.gameObject == null) return;
-        
-        GameManager.instance.selectedTank.Fire();
     }
 }
