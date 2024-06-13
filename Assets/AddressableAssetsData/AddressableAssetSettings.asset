@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 27613862ca7378e4581652a39af2b79f
   m_currentHash:
     serializedVersion: 2
-    Hash: 009dfdab639bfa63bf272e953cac0378
+    Hash: fc3781d2cc0918708982c18171e2c042
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
     - default
     - Tank
     - Projectile
+    - Plane
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 7a26aa98248cbe74ebe268024b3db9b4, type: 2}

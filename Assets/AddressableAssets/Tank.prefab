@@ -133,9 +133,9 @@ MonoBehaviour:
   cannon: {fileID: 2784843240624802885}
   cannonPoint: {fileID: 6315198910638553140}
   rb: {fileID: 2122371184794548770}
-  cannonForce: 10
+  cannonForce: 50
   movementSpeed: 0.5
-  rotationSpeed: 20
+  rotationSpeed: 1.5
 --- !u!54 &2122371184794548770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -459,7 +459,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2536541214313671511}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.26833677, y: 5.058409, z: -1.3701757}
   m_LocalScale: {x: 158.19258, y: 255.88234, z: 62.106834}
   m_ConstrainProportionsScale: 0
@@ -467,7 +467,7 @@ Transform:
   - {fileID: 8873271346792056908}
   - {fileID: 6315198910638553140}
   m_Father: {fileID: 4922120689836207504}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &1102517000902650035
 MeshFilter:
   m_ObjectHideFlags: 0

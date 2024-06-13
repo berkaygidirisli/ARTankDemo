@@ -21,16 +21,19 @@ public class ControlManager : MonoSingleton<ControlManager>
     
     void SelectTankUsingRaycast()
     {
-        if (TouchPhase.Began == Input.GetTouch(0).phase)
+        if (Input.touchCount > 0)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            Touch touch = Input.GetTouch(0);
+            
+            if (TouchPhase.Began != touch.phase) return;
+        
+            var ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+
+            if (!Physics.Raycast(ray, out var hit)) return;
+        
+            if (hit.collider.CompareTag("Tank"))
             {
-                if (hit.collider.CompareTag("Tank"))
-                {
-                    GameManager.instance.selectedTank = hit.collider.GetComponent<Tank>();
-                }
+                GameManager.instance.selectedTank = hit.collider.GetComponent<Tank>();
             }
         }
     }
@@ -40,8 +43,10 @@ public class ControlManager : MonoSingleton<ControlManager>
     {
         if (tank.gameObject == null) return;
         
-        Vector3 direction =  Camera.main.transform.forward * rotationJoystick.Horizontal;
-        tank.cannon.transform.Rotate(direction * tank.rotationSpeed * Time.fixedDeltaTime);
+        var direction =  Camera.main.transform.forward * rotationJoystick.Horizontal;
+        direction.y = 0f;
+        direction.Normalize();
+        tank.cannon.transform.Rotate(direction * tank.rotationSpeed);
     }
 
     private void HandleMovement(Tank tank)

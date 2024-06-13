@@ -1189,7 +1189,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1668979038}
+  - {fileID: 1137094982}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &558316748
@@ -2013,6 +2013,37 @@ RectTransform:
   m_AnchoredPosition: {x: -340, y: 694}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 1, y: 0}
+--- !u!1 &1137094981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137094982}
+  m_Layer: 0
+  m_Name: target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1137094982
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137094981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 558316747}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1305959671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,12 +2166,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedTank: {fileID: 0}
-  tankPrefab: {fileID: 1336313499309884939, guid: 7ae8f557d36569f4b84e45f86757f7ce, type: 3}
   plane: {fileID: 0}
   spawnPoint: {fileID: 0}
-  groundPlaneStageTransform: {fileID: 558316747}
   tankCount: 0
   deadTankCount: 0
+  activePlanes: 0
   anchorInputListenerBehaviour: {fileID: 248307113}
   planeFinderBehaviour: {fileID: 248307112}
   contentPositioningBehaviour: {fileID: 248307111}
@@ -2273,8 +2303,17 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  planePrefab:
+    m_AssetGUID: 54dc95543aad5944e8011025402b3666
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   pooledTanks: []
+  amountToPoolTanks: 10
   pooledProjectiles: []
+  amountToPoolProjectile: 50
+  pooledPlanes: []
+  amountToPoolPlane: 10
 --- !u!4 &1610005348
 Transform:
   m_ObjectHideFlags: 0
@@ -2290,84 +2329,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1668979037
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 558316747}
-    m_Modifications:
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3210090575451548014, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3210090575451548014, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3210090575451548014, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3210090575451548014, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5869823667416700608, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-      propertyPath: m_Name
-      value: Plane
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 54dc95543aad5944e8011025402b3666, type: 3}
---- !u!4 &1668979038 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836905988891048243, guid: 54dc95543aad5944e8011025402b3666, type: 3}
-  m_PrefabInstance: {fileID: 1668979037}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1680688720
 GameObject:
   m_ObjectHideFlags: 0

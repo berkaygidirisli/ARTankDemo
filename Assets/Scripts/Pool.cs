@@ -8,22 +8,28 @@ public class Pool : MonoSingleton<Pool>
 {
     public AssetReference tankPrefab;
     public AssetReference projectilePrefab;
+    public AssetReference planePrefab;
     
     AsyncOperationHandle<IList<IResourceLocation>> tankLocHandle;
     AsyncOperationHandle<IList<IResourceLocation>> projectileLocHandle;
+    AsyncOperationHandle<IList<IResourceLocation>> planeLocHandle;
     
-    [SerializeField] public List<Tank> pooledTanks = new List<Tank>();
-    private int amountToPoolTanks = 10;
+    [SerializeField] public List<GameObject> pooledTanks = new List<GameObject>();
+    public int amountToPoolTanks = 10;
     [SerializeField] public List<GameObject> pooledProjectiles = new List<GameObject>();
-    private int amountToPoolProjectile = 50;
+    public int amountToPoolProjectile = 50;
+    [SerializeField] public List<GameObject> pooledPlanes = new List<GameObject>();
+    public int amountToPoolPlane = 10;
 
     private void Start()
     {
         tankLocHandle = Addressables.LoadResourceLocationsAsync(tankPrefab, typeof(GameObject));
         projectileLocHandle = Addressables.LoadResourceLocationsAsync(projectilePrefab, typeof(GameObject));
+        planeLocHandle = Addressables.LoadResourceLocationsAsync(planePrefab, typeof(GameObject));
         
         tankLocHandle.Completed += LocHandleOnCompleted;
         projectileLocHandle.Completed += LocHandleOnCompleted;
+        planeLocHandle.Completed += LocHandleOnCompleted;
     }
 
     private void LocHandleOnCompleted(AsyncOperationHandle<IList<IResourceLocation>> obj)
@@ -41,68 +47,102 @@ public class Pool : MonoSingleton<Pool>
     {
         if (asyncOperationHandle.Status != AsyncOperationStatus.Succeeded) return;
         
-        var go = Instantiate(asyncOperationHandle.Result);
+        var go = asyncOperationHandle.Result;
         
-        if (go.TryGetComponent(out Tank _))
+        if (go.CompareTag("Tank"))
         {
-            for (int i = 0; i < amountToPoolTanks; i++)
-            {
-                var tankInstance = Instantiate(go);
-                tankInstance.SetActive(false);
-                pooledTanks.Add(tankInstance.GetComponent<Tank>());
-            }
-            
-            Destroy(go);
+            AddResultToPool(go, pooledTanks, amountToPoolTanks);
         }
-        else
+        
+        if (go.CompareTag("Projectile"))
         {
-            for (int i = 0; i < amountToPoolProjectile; i++)
-            {
-                var projectileInstance = Instantiate(go);
-                projectileInstance.SetActive(false);
-                pooledProjectiles.Add(projectileInstance);
-            }
-            
-            Destroy(go);
+            AddResultToPool(go, pooledProjectiles, amountToPoolProjectile);
+        }
+        
+        if (go.CompareTag("Plane"))
+        {
+            AddResultToPool(go, pooledPlanes, amountToPoolPlane);
+        }
+    }
+
+    private static void AddResultToPool(GameObject go, List<GameObject> targetList, int amountToPool)
+    {
+        for (var i = 0; i < amountToPool; i++)
+        {
+            var item = Instantiate(go);
+            item.SetActive(false);
+            targetList.Add(item);
         }
     }
 
     public GameObject GetPooledProjectile()
     {
-        for (int i = 0; i < pooledProjectiles.Count; i++)
+        foreach (var projectile in pooledProjectiles)
         {
-            if (!pooledProjectiles[i].activeInHierarchy)
+            if (!projectile.activeInHierarchy)
             {
-                return pooledProjectiles[i];
+                return projectile;
             }
         }
+
+        return null;
+    }
+    
+    public GameObject GetPooledPlane()
+    {
+        foreach (var plane in pooledPlanes)
+        {
+            if (!plane.activeInHierarchy)
+            {
+                return plane;
+            }
+        }
+
         return null;
     }
     
     public void Release(GameObject go)
     {
         go.SetActive(false);
+        Debug.Log(go.name + " released!");
     }
     
     public Tank GetPooledTank()
     {
-        for (int i = 0; i < pooledTanks.Count; i++)
+        foreach (var tank in pooledTanks)
         {
-            if (!pooledTanks[i].gameObject.activeInHierarchy)
+            if (!tank.gameObject.activeInHierarchy)
             {
-                return pooledTanks[i];
+                return tank.GetComponent<Tank>();
             }
         }
+
         return null;
     }
 
     public void CloseAllTanks()
     {
-        foreach (var tank in pooledTanks)
+        foreach (var tankGo in pooledTanks)
         {
+            var tank = tankGo.GetComponent<Tank>();
+            
             tank.rb.angularVelocity = Vector3.zero;
             tank.rb.velocity = Vector3.zero;
+            tank.cannon.transform.rotation = Quaternion.Euler(-90f,0f,0f);
+            
             Release(tank.gameObject);
+            
+            Debug.Log("All tanks closed!");
+        }
+    }
+
+    public void CloseAllPlanes()
+    {
+        foreach (var plane in pooledPlanes)
+        {
+            Release(plane);
+            
+            Debug.Log("All planes closed!");
         }
     }
 }

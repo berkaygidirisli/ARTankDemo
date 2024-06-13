@@ -44,5 +44,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         tankCountText.text = "Tank Count: " + GameManager.instance.tankCount;
         destroyedTankCountText.text = "Destroyed Tank Count: " + GameManager.instance.deadTankCount;
+        
+        Debug.Log("UI Updated!");
     }
 }

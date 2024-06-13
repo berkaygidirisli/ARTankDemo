@@ -29,6 +29,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Tank
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54dc95543aad5944e8011025402b3666
+    m_Address: Plane
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Plane
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c6cf180bb4405c468570997d6f2ca1b, type: 2}
   m_SchemaSet:

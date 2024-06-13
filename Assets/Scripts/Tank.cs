@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tank : MonoBehaviour
@@ -32,7 +30,7 @@ public class Tank : MonoBehaviour
 
     private static void DisableObject(GameObject go)
     {
-        go.GetComponent<Rigidbody>().angularVelocity = (Vector3.zero);
+        go.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         go.GetComponent<Rigidbody>().velocity = Vector3.zero;
         Pool.instance.Release(go);
     }
@@ -43,6 +41,7 @@ public class Tank : MonoBehaviour
         {
             DisableObject(gameObject);
             DisableObject(other.gameObject);
+            cannon.rotation = Quaternion.Euler(-90f,0f,0f);
             GameManager.instance.deadTankCount++;
             GameManager.instance.tankCount--;
             UIManager.instance.UpdateUI();
