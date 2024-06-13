@@ -43,10 +43,8 @@ public class ControlManager : MonoSingleton<ControlManager>
     {
         if (tank.gameObject == null) return;
         
-        var direction =  Camera.main.transform.forward * rotationJoystick.Horizontal;
-        direction.y = 0f;
-        direction.Normalize();
-        tank.cannon.transform.Rotate(direction * tank.rotationSpeed);
+        
+        tank.cannon.transform.Rotate(Vector3.forward, rotationJoystick.Horizontal * tank.rotationSpeed);
     }
 
     private void HandleMovement(Tank tank)

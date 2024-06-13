@@ -1,13 +1,14 @@
+using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Vuforia;
 
 public class UIManager : MonoSingleton<UIManager>
 {
     public TextMeshProUGUI destroyedTankCountText;
     public TextMeshProUGUI tankCountText;
+    public TextMeshProUGUI activePlanesText;
+    public TextMeshProUGUI fpsText;
     
     public Button fireButton;
     public Button resetButton;
@@ -44,7 +45,13 @@ public class UIManager : MonoSingleton<UIManager>
     {
         tankCountText.text = "Tank Count: " + GameManager.instance.tankCount;
         destroyedTankCountText.text = "Destroyed Tank Count: " + GameManager.instance.deadTankCount;
+        activePlanesText.text = "Active Planes: " + GameManager.instance.activePlanesCount;
         
         Debug.Log("UI Updated!");
+    }
+
+    private void Update()
+    {
+        fpsText.text = "FPS: " + (1 / Time.deltaTime).ToString("F0");
     }
 }

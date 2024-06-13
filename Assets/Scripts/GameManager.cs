@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MobileConsole;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +11,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public int tankCount;
     public int deadTankCount;
-    public int activePlanes = 0;
+    public int activePlanesCount = 0;
 
     public AnchorInputListenerBehaviour anchorInputListenerBehaviour;
     public PlaneFinderBehaviour planeFinderBehaviour;
@@ -59,7 +58,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         tankCount = 0;
         deadTankCount = 0;
-        activePlanes = 0;
+        activePlanesCount = 0;
         
         Pool.instance.CloseAllTanks();
         Pool.instance.CloseAllPlanes();
@@ -95,9 +94,11 @@ public class GameManager : MonoSingleton<GameManager>
         plane = pooledPlane.transform;
         spawnPoint = plane.GetChild(0);
         
-        activePlanes++;
+        activePlanesCount++;
         Debug.Log("Spawn Point Updated");
-        Debug.Log("Active Planes: " + activePlanes);
+        Debug.Log("Active Planes: " + activePlanesCount);
+        
+        UIManager.instance.UpdateUI();
     }
 
     public void SpawnTank()

@@ -738,9 +738,9 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DebugLog
-    Standalone: DebugLog
-    iPhone: DebugLog
+    Android: 
+    Standalone: 
+    iPhone: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
