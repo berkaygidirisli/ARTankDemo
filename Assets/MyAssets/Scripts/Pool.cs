@@ -111,7 +111,7 @@ public class Pool : MonoSingleton<Pool>
     public void Release(GameObject go)
     {
         go.SetActive(false);
-        Debug.Log(go.name + " released!");
+        //Debug.Log(go.name + " released!");
     }
     
     public Tank GetPooledTank()
@@ -138,7 +138,7 @@ public class Pool : MonoSingleton<Pool>
             tank.cannon.transform.rotation = Quaternion.Euler(-90f,0f,0f);
             Release(tank.gameObject);
             
-            Debug.Log("All tanks closed!");
+            //Debug.Log("All tanks closed!");
         }
         
         UIManager.instance.ClearList();
@@ -155,7 +155,7 @@ public class Pool : MonoSingleton<Pool>
         {
             Release(plane);
             
-            Debug.Log("All planes closed!");
+            //Debug.Log("All planes closed!");
         }
     }
 }

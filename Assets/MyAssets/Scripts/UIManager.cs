@@ -60,18 +60,8 @@ public class UIManager : MonoSingleton<UIManager>
     
     public void RemoveTankFromList(Tank t)
     {
-        if (tankList.value > tankList.options.FindIndex(x => x.text == t.name))
-        {
-            Pool.instance.activeTanks.Remove(t);
-            UpdateDropdown();
-            tankList.value -= 1;
-        }
-        else
-        {
-            Pool.instance.activeTanks.Remove(t);
-            UpdateDropdown();
-        }
-        
+        Pool.instance.activeTanks.Remove(t);
+        UpdateDropdown();
     }
 
     private void UpdateUI()
@@ -86,7 +76,7 @@ public class UIManager : MonoSingleton<UIManager>
         activePlanesText.text = "Active Planes: " + GameManager.instance.activePlanesCount;
     }
 
-    private void UpdateDropdown()
+    public void UpdateDropdown()
     {
         tankList.options.Clear();
         
@@ -94,6 +84,8 @@ public class UIManager : MonoSingleton<UIManager>
         {
             tankList.options.Add(new TMP_Dropdown.OptionData(tank.name));
         }
+        
+        tankList.value = Pool.instance.activeTanks.IndexOf(GameManager.instance.selectedTank);
     }
 
     private void Update()

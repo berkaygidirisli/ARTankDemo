@@ -33,7 +33,7 @@ public class GameManager : MonoSingleton<GameManager>
         //Check if the current build is development build
         if (Debug.isDebugBuild)
         {
-            Debug.Log("Development Build");
+            //Debug.Log("Development Build");
             LogConsole.Show();
         }
         else
@@ -48,7 +48,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             if (hitTestResult == null)
             {
-                Debug.LogError("Hit Test Result is Null!");
+                //Debug.LogError("Hit Test Result is Null!");
                 return;
             }
             contentPositioningBehaviour.PositionContentAtPlaneAnchor(hitTestResult);
@@ -72,7 +72,7 @@ public class GameManager : MonoSingleton<GameManager>
         UIManager.instance.ClearList();
         
         isGameStarted = false;
-        Debug.Log("Game Reset");
+        //Debug.Log("Game Reset");
     }
 
     private void StartGame(GameObject target)
@@ -83,7 +83,7 @@ public class GameManager : MonoSingleton<GameManager>
         ResetGame();
         
         isGameStarted = true;
-        Debug.Log("Game Started");
+        //Debug.Log("Game Started");
     }
 
     private void UpdateSpawnPoint(Transform targetTransform)
@@ -99,22 +99,22 @@ public class GameManager : MonoSingleton<GameManager>
         
         activePlanesCount++;
         
-        Debug.Log("Spawn Point Updated");
-        Debug.Log("Active Planes: " + activePlanesCount);
+        //Debug.Log("Spawn Point Updated");
+        //Debug.Log("Active Planes: " + activePlanesCount);
     }
 
     public void SpawnTank()
     {
         if (plane == null || spawnPoint == null)
         {
-            Debug.LogWarning("Plane or Spawn Point is Null!");
+            //Debug.LogWarning("Plane or Spawn Point is Null!");
             return;
         }
         
         var tank = Pool.instance.GetPooledTank();
         if (tank == null)
         {
-            Debug.LogError("Tank Pool is Empty! Pool limit: " + Pool.instance.pooledTanks.Count);
+            //Debug.LogError("Tank Pool is Empty! Pool limit: " + Pool.instance.pooledTanks.Count);
             return;
         }
         
@@ -129,10 +129,10 @@ public class GameManager : MonoSingleton<GameManager>
         if (tankCount == 1)
         {
             SetSelectedTank(tank);
-            Debug.Log("Selected Tank Updated!");
+            //Debug.Log("Selected Tank Updated!");
         }
         
-        Debug.Log("Tank Spawned");
+        //Debug.Log("Tank Spawned");
     }
 
     public void SetSelectedTank(Tank tank)
@@ -141,5 +141,6 @@ public class GameManager : MonoSingleton<GameManager>
         UIManager.instance.uiIndicator.SetActive(true);
         UIManager.instance.uiIndicator.transform.SetParent(tank.transform);
         UIManager.instance.uiIndicator.transform.localPosition = Vector3.zero;
+        UIManager.instance.UpdateDropdown();
     }
 }
