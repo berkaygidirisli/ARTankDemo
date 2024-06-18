@@ -33,7 +33,7 @@ public class ControlManager : MonoSingleton<ControlManager>
         
             if (hit.collider.CompareTag("Tank"))
             {
-                GameManager.instance.selectedTank = hit.collider.GetComponent<Tank>();
+                GameManager.instance.SetSelectedTank(hit.collider.GetComponent<Tank>());
             }
         }
     }

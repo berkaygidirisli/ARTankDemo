@@ -6,6 +6,7 @@ using Vuforia;
 public class GameManager : MonoSingleton<GameManager>
 {
     public Tank selectedTank;
+    
     public Transform plane;
     public Transform spawnPoint;
 
@@ -56,17 +57,19 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void ResetGame()
     {
+        selectedTank = null;
+        
         tankCount = 0;
         deadTankCount = 0;
         activePlanesCount = 0;
         
         Pool.instance.CloseAllTanks();
         Pool.instance.CloseAllPlanes();
-
+        
         plane = null;
         spawnPoint = null;
         
-        UIManager.instance.UpdateUI();
+        UIManager.instance.ClearList();
         
         isGameStarted = false;
         Debug.Log("Game Reset");
@@ -95,10 +98,9 @@ public class GameManager : MonoSingleton<GameManager>
         spawnPoint = plane.GetChild(0);
         
         activePlanesCount++;
+        
         Debug.Log("Spawn Point Updated");
         Debug.Log("Active Planes: " + activePlanesCount);
-        
-        UIManager.instance.UpdateUI();
     }
 
     public void SpawnTank()
@@ -117,18 +119,27 @@ public class GameManager : MonoSingleton<GameManager>
         }
         
         tank.gameObject.SetActive(true);
+        
         tank.transform.position = spawnPoint.position;
         tank.transform.rotation = spawnPoint.rotation;
+        UIManager.instance.AddTankToList(tank);
         
         tankCount++;
-        UIManager.instance.UpdateUI();
-
+        
         if (tankCount == 1)
         {
-            selectedTank = tank;
+            SetSelectedTank(tank);
             Debug.Log("Selected Tank Updated!");
         }
         
         Debug.Log("Tank Spawned");
+    }
+
+    public void SetSelectedTank(Tank tank)
+    {
+        selectedTank = tank;
+        UIManager.instance.uiIndicator.SetActive(true);
+        UIManager.instance.uiIndicator.transform.SetParent(tank.transform);
+        UIManager.instance.uiIndicator.transform.localPosition = Vector3.zero;
     }
 }

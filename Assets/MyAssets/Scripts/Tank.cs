@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ public class Tank : MonoBehaviour
     {
         go.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         go.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        
         Pool.instance.Release(go);
     }
 
@@ -39,12 +41,20 @@ public class Tank : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Projectile"))
         {
-            DisableObject(gameObject);
-            DisableObject(other.gameObject);
-            cannon.rotation = Quaternion.Euler(-90f,0f,0f);
+            Tank t = gameObject.GetComponent<Tank>();
+            
             GameManager.instance.deadTankCount++;
             GameManager.instance.tankCount--;
-            UIManager.instance.UpdateUI();
+            
+            UIManager.instance.RemoveTankFromList(t);
+            
+            DisableObject(gameObject);
+            DisableObject(other.gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        cannon.localRotation = Quaternion.Euler(-90f,0f,0f);
     }
 }

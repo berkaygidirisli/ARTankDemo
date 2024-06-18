@@ -15,6 +15,7 @@ public class Pool : MonoSingleton<Pool>
     AsyncOperationHandle<IList<IResourceLocation>> planeLocHandle;
     
     [SerializeField] public List<GameObject> pooledTanks = new List<GameObject>();
+    [SerializeField] public List<Tank> activeTanks = new List<Tank>();
     public int amountToPoolTanks = 10;
     [SerializeField] public List<GameObject> pooledProjectiles = new List<GameObject>();
     public int amountToPoolProjectile = 50;
@@ -65,11 +66,17 @@ public class Pool : MonoSingleton<Pool>
         }
     }
 
-    private static void AddResultToPool(GameObject go, List<GameObject> targetList, int amountToPool)
+    private void AddResultToPool(GameObject go, List<GameObject> targetList, int amountToPool)
     {
         for (var i = 0; i < amountToPool; i++)
         {
             var item = Instantiate(go);
+
+            if (targetList == pooledTanks)
+            {
+                item.name = "Tank " + (i + 1);
+            }
+            
             item.SetActive(false);
             targetList.Add(item);
         }
@@ -129,11 +136,17 @@ public class Pool : MonoSingleton<Pool>
             tank.rb.angularVelocity = Vector3.zero;
             tank.rb.velocity = Vector3.zero;
             tank.cannon.transform.rotation = Quaternion.Euler(-90f,0f,0f);
-            
             Release(tank.gameObject);
             
             Debug.Log("All tanks closed!");
         }
+        
+        UIManager.instance.ClearList();
+        activeTanks.Clear();
+        
+        UIManager.instance.uiIndicator.transform.SetParent(null);
+        UIManager.instance.uiIndicator.SetActive(false);
+        GameManager.instance.selectedTank = null;
     }
 
     public void CloseAllPlanes()

@@ -9,6 +9,9 @@ public class UIManager : MonoSingleton<UIManager>
     public TextMeshProUGUI tankCountText;
     public TextMeshProUGUI activePlanesText;
     public TextMeshProUGUI fpsText;
+
+    public GameObject uiIndicator;
+    public TMP_Dropdown tankList;
     
     public Button fireButton;
     public Button resetButton;
@@ -39,19 +42,73 @@ public class UIManager : MonoSingleton<UIManager>
         {
             GameManager.instance.SpawnTank();
         });
+
+        tankList.onValueChanged.AddListener(delegate
+        {
+            GameManager.instance.SetSelectedTank(Pool.instance.activeTanks[tankList.value]);
+            UpdateDropdown();
+        });
+        
+        uiIndicator.SetActive(false);
+    }
+    
+    public void AddTankToList(Tank t)
+    {
+        Pool.instance.activeTanks.Add(t);
+        UpdateDropdown();
+    }
+    
+    public void RemoveTankFromList(Tank t)
+    {
+        if (tankList.value > tankList.options.FindIndex(x => x.text == t.name))
+        {
+            Pool.instance.activeTanks.Remove(t);
+            UpdateDropdown();
+            tankList.value -= 1;
+        }
+        else
+        {
+            Pool.instance.activeTanks.Remove(t);
+            UpdateDropdown();
+        }
+        
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
+        if (GameManager.instance.selectedTank == null)
+        {
+            uiIndicator.SetActive(false);
+        }
+        
         tankCountText.text = "Tank Count: " + GameManager.instance.tankCount;
         destroyedTankCountText.text = "Destroyed Tank Count: " + GameManager.instance.deadTankCount;
         activePlanesText.text = "Active Planes: " + GameManager.instance.activePlanesCount;
+    }
+
+    private void UpdateDropdown()
+    {
+        tankList.options.Clear();
         
-        Debug.Log("UI Updated!");
+        foreach (var tank in Pool.instance.activeTanks)
+        {
+            tankList.options.Add(new TMP_Dropdown.OptionData(tank.name));
+        }
     }
 
     private void Update()
     {
         fpsText.text = "FPS: " + (1 / Time.deltaTime).ToString("F0");
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateUI();
+    }
+
+    public void ClearList()
+    {
+        tankList.options.Clear();
+        Pool.instance.activeTanks.Clear();
     }
 }
