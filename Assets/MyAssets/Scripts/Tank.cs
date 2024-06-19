@@ -7,9 +7,9 @@ public class Tank : MonoBehaviour
     public Transform cannon;
     public Transform cannonPoint;
     public Rigidbody rb;
-    
     public ParticleSystem particleSystem;
-    
+    [SerializeField] private LineRenderer laserLine;
+
     public float cannonForce = 1f;
     public float movementSpeed = 0.1f;
     public float rotationSpeed = 2f;
@@ -59,5 +59,11 @@ public class Tank : MonoBehaviour
     private void OnEnable()
     {
         cannon.localRotation = Quaternion.Euler(-90f,0f,0f);
+        laserLine.gameObject.SetActive(false);
+    }
+
+    private void FixedUpdate()
+    {
+        laserLine.gameObject.SetActive(this == GameManager.instance.selectedTank);
     }
 }

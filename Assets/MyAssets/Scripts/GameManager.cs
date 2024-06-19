@@ -92,6 +92,15 @@ public class GameManager : MonoSingleton<GameManager>
         
         pooledPlane.transform.position = targetTransform.transform.position;
         pooledPlane.transform.rotation = targetTransform.transform.rotation;
+
+        if (plane != null)
+        {
+            pooledPlane.transform.position = new Vector3(
+                pooledPlane.transform.position.x,
+                plane.position.y,
+                pooledPlane.transform.position.z);
+        }
+        
         pooledPlane.SetActive(true);
         
         plane = pooledPlane.transform;
