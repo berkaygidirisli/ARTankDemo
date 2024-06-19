@@ -8,6 +8,8 @@ public class Tank : MonoBehaviour
     public Transform cannonPoint;
     public Rigidbody rb;
     
+    public ParticleSystem particleSystem;
+    
     public float cannonForce = 1f;
     public float movementSpeed = 0.1f;
     public float rotationSpeed = 2f;
@@ -20,6 +22,7 @@ public class Tank : MonoBehaviour
         go.transform.rotation = cannonPoint.rotation;
         go.gameObject.SetActive(true);
         go.GetComponent<Rigidbody>().AddForce(-cannonPoint.up * cannonForce);
+        particleSystem.Play();
         StartCoroutine(DisableProjectile(go));
     }
 
